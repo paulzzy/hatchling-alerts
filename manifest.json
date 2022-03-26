@@ -1,0 +1,32 @@
+{
+  "manifest_version": 2,
+  "name": "Hatchlings Alert",
+  "version": "0.1.0",
+
+  "description": "Shows the age of a Twitter account under a tweet.",
+
+  "icons": {
+    "24": "icon.svg",
+    "48": "icon.svg",
+    "96": "icon.svg"
+  },
+
+  "background": {
+    "scripts": ["background.js"]
+  },
+
+  "content_scripts": [
+    {
+      "js": ["content.js"],
+      "matches": ["https://*.twitter.com/*"]
+    }
+  ],
+
+  "permissions": ["https://*.twitter.com/*", "cookies", "notifications"],
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "@hatchlings-alert"
+    }
+  }
+}
