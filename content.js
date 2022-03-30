@@ -23,3 +23,12 @@ const newTweetsObserver = new MutationObserver((mutations) =>
   })
 );
 newTweetsObserver.observe(document.documentElement, observeOptions);
+
+/**
+ * Find the username associated with a tweet
+ * @param {Element} tweet
+ */
+function findUsername(tweet) {
+  const usernameNode = tweet.querySelector(USERNAME_CSS_SELECTOR);
+  const username = usernameNode.textContent.slice(INDEX_AFTER_AT_SYMBOL);
+}
