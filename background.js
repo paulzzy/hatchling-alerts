@@ -1,3 +1,13 @@
+// Despite appearing to be unused, these are actually necessary for the extension
+// `dayjs` uses `globalThis`, so it's called with `globalThis.dayjs`
+// See https://stackoverflow.com/questions/71743478/importing-day-js-doesnt-work-in-my-extension-despite-being-usable-in-the-cons
+import * as dayjs from "./dayjs@1.11.0/dayjs.min.js";
+import * as relativeTime from "./dayjs@1.11.0/relativeTime.js";
+import * as updateLocale from "./dayjs@1.11.0/updateLocale.js";
+
+const NEW_PREFIX = "🐣";
+const OLD_PREFIX = "🐦";
+
 /**
  * Takes a Twitter username and returns the UTC datetime that the account was created.
  * Mimics the official Twitter client by using the same API token.
@@ -25,6 +35,51 @@ async function createdAt(username) {
 
   const data = await response.json();
 
-  console.log(data.created_at);
   return data.created_at;
 }
+
+/**
+ * Calculates the age of a Twitter account and formats it for display in a Tweet
+ *
+ * Example formatted age: "🐣  1d old"
+ * @param {String} username Username of a Twitter account
+ * @returns {String} formatted age of the account
+ */
+async function calculateFormattedAge(username) {
+  const twitterApiResponse = await createdAt(username);
+  console.log(`${username} was created on ${twitterApiResponse}`);
+
+  globalThis.dayjs.extend(globalThis.dayjs_plugin_relativeTime);
+  globalThis.dayjs.extend(globalThis.dayjs_plugin_updateLocale);
+
+  // See https://day.js.org/docs/en/customization/relative-time for
+  // documentation on configuring `relativeTime`
+  // See https://day.js.org/docs/en/customization/relative-time#relative-time-thresholds-and-rounding
+  // and https://day.js.org/docs/en/display/from-now#list-of-breakdown-range
+  // for documentation on thresholds and rounding
+  const localeConfig = {
+    relativeTime: {
+      past: "%s old",
+      s: `${NEW_PREFIX} <1d`,
+      m: `${NEW_PREFIX} <1d`,
+      mm: `${NEW_PREFIX} <1d`,
+      h: `${NEW_PREFIX} <1d`,
+      hh: `${NEW_PREFIX} <1d`,
+      d: `${NEW_PREFIX} 1d`,
+      dd: `${NEW_PREFIX} %dd`,
+      M: `${NEW_PREFIX} 1m`,
+      // Accounts younger than or equal to 25 days are considered "new"
+      MM: `${OLD_PREFIX} %dm`,
+      y: `${OLD_PREFIX} 1y`,
+      yy: `${OLD_PREFIX} %dy`,
+    },
+  };
+  globalThis.dayjs.updateLocale("en", localeConfig);
+
+  const datetimeCreated = globalThis.dayjs(twitterApiResponse);
+
+  const age = datetimeCreated.fromNow();
+  return age;
+}
+
+browser.runtime.onMessage.addListener(calculateFormattedAge);
