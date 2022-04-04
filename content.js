@@ -7,7 +7,8 @@ const INDEX_AFTER_AT_SYMBOL = 1;
 const observeOptions = { subtree: true, childList: true };
 
 /**
- * Observe the tweet timeline and find new tweets
+ * Observes the Tweet timeline and finds new Tweets
+ * @param {MutationRecord[]} mutations
  */
 const newTweetsObserver = new MutationObserver((mutations) =>
   mutations.forEach((mutation) => {
@@ -16,7 +17,7 @@ const newTweetsObserver = new MutationObserver((mutations) =>
     }
 
     mutation.addedNodes.forEach((addedNode) => {
-      // querySelector() has relatively poor performance
+      // `querySelector()` has relatively poor performance
       // If the extension is slow, this is a good target for optimization
       if (addedNode.nodeType !== Node.ELEMENT_NODE) {
         return;
@@ -37,8 +38,9 @@ const newTweetsObserver = new MutationObserver((mutations) =>
 newTweetsObserver.observe(document.documentElement, observeOptions);
 
 /**
- * Find the username associated with a tweet
- * @param {Element} tweet
+ * Find the username associated with a Tweet
+ * @param {Element} tweet HTML element that represents a Tweet
+ * @returns {String} Twitter username
  */
 function findUsername(tweet) {
   const usernameNode = tweet.querySelector(USERNAME_CSS_SELECTOR);
