@@ -5,9 +5,6 @@ import * as dayjs from "./dayjs@1.11.0/dayjs.min.js";
 import * as relativeTime from "./dayjs@1.11.0/relativeTime.js";
 import * as updateLocale from "./dayjs@1.11.0/updateLocale.js";
 
-const NEW_PREFIX = "🐣";
-const OLD_PREFIX = "🐦";
-
 /**
  * Takes a Twitter username and makes a Twitter API request for the UTC datetime
  * that the account was created
@@ -48,6 +45,9 @@ async function createdAt(username) {
  * @returns {String} formatted age of the account
  */
 async function calculateFormattedAge(username) {
+  const NEW_PREFIX = "🐣";
+  const OLD_PREFIX = "🐦";
+
   const twitterApiResponse = await createdAt(username);
   console.log(`${username} was created on ${twitterApiResponse}`);
 
