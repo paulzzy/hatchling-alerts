@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
-  "name": "Hatchlings Alert",
+  "name": "Hatchling Alerts",
   "version": "0.1.0",
 
-  "description": "Shows the age of a Twitter account under a tweet.",
+  "description": "Shows the age of a Twitter account above a tweet",
 
   "icons": {
     "24": "icon.svg",
