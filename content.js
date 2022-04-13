@@ -4,6 +4,7 @@
  */
 const newTweetsObserver = new MutationObserver((mutations) => {
   const TWEETS_CSS_SELECTOR = '[data-testid="tweet"]';
+  const INDICATE_MODIFIED = "hatchling-alerts.modified";
 
   mutations.forEach((mutation) => {
     if (mutation.type !== "childList") {
@@ -18,14 +19,16 @@ const newTweetsObserver = new MutationObserver((mutations) => {
       }
 
       const newTweet = addedNode.querySelector(TWEETS_CSS_SELECTOR);
-      if (newTweet === null) {
+      if (newTweet === null || newTweet.hasAttribute(INDICATE_MODIFIED)) {
         return;
       }
 
       const username = findUsername(newTweet);
       getFormattedAccountAge(username).then((age) => {
-        console.log(username + " is " + age);
+        addDateToTweet(newTweet, age);
       });
+
+      newTweet.setAttribute(INDICATE_MODIFIED, "true");
     });
   });
 });
@@ -56,4 +59,27 @@ async function getFormattedAccountAge(username) {
   // Sends `username` to `background.js`, which returns when the account was created
   const age = await browser.runtime.sendMessage(username);
   return age;
+}
+
+/**
+ *
+ * @param {Element} tweet HTML element that represents a Tweet
+ * @param {String} age formatted age of the account
+ */
+function addDateToTweet(tweet, age) {
+  const MIDDLE_DOT = "·";
+  const MIDDLE_DOT_CSS_SELECTOR =
+    "div:nth-child(2) > div:nth-child(2) > div > div > div > div > div:nth-child(2)";
+  const DEEP_CLONE = true;
+
+  const middleDot = tweet.querySelector(MIDDLE_DOT_CSS_SELECTOR);
+  const secondMiddleDot = middleDot.cloneNode(DEEP_CLONE);
+  const ageNode = middleDot.cloneNode(DEEP_CLONE);
+  secondMiddleDot.firstChild.textContent = MIDDLE_DOT;
+  ageNode.firstChild.textContent = age;
+
+  const infoBar = middleDot.parentElement;
+
+  infoBar.appendChild(secondMiddleDot);
+  infoBar.appendChild(ageNode);
 }
