@@ -69,9 +69,12 @@ async function calculateFormattedAge(username) {
       hh: `${NEW_PREFIX} <1d`,
       d: `${NEW_PREFIX} 1d`,
       dd: `${NEW_PREFIX} %dd`,
-      M: `${NEW_PREFIX} 1m`,
-      // Accounts younger than or equal to 25 days are considered "new"
-      MM: `${OLD_PREFIX} %dm`,
+      M: `${NEW_PREFIX} 1mo`,
+      MM: `${NEW_PREFIX} %dmo`,
+      // Accounts younger than or equal to 10 months are considered "new"
+      // See https://day.js.org/docs/en/display/from-now#list-of-breakdown-range
+      // Honestly the thresholds seem kind of weird, so in the future I might
+      // set my own custom thresholds instead of using the default
       y: `${OLD_PREFIX} 1y`,
       yy: `${OLD_PREFIX} %dy`,
     },
