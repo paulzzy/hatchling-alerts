@@ -24,7 +24,7 @@ async function createdAt(username) {
     name: CT_ZERO,
   });
 
-  const response = await content.fetch(TWITTER_API_URL, {
+  const response = await fetch(TWITTER_API_URL, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${TWITTER_CLIENT_TOKEN}`,
