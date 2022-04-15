@@ -62,7 +62,8 @@ async function getFormattedAccountAge(username) {
 }
 
 /**
- *
+ * Modifies tweet HTML to show the age of the account.
+ * Does not modify the original tweet within quote tweets or advertisement tweets.
  * @param {Element} tweet HTML element that represents a Tweet
  * @param {String} age formatted age of the account
  */
