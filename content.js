@@ -73,13 +73,11 @@ function addDateToTweet(tweet, age) {
   const DEEP_CLONE = true;
 
   const middleDot = tweet.querySelector(MIDDLE_DOT_CSS_SELECTOR);
-  const secondMiddleDot = middleDot.cloneNode(DEEP_CLONE);
+
   const ageNode = middleDot.cloneNode(DEEP_CLONE);
-  secondMiddleDot.firstChild.textContent = MIDDLE_DOT;
-  ageNode.firstChild.textContent = age;
+  ageNode.firstChild.textContent = `${MIDDLE_DOT} ${age}`;
 
   const infoBar = middleDot.parentElement;
 
-  infoBar.appendChild(secondMiddleDot);
   infoBar.appendChild(ageNode);
 }
