@@ -70,14 +70,34 @@ function addDateToTweet(tweet, age) {
   const MIDDLE_DOT = "·";
   const MIDDLE_DOT_CSS_SELECTOR =
     "div:nth-child(2) > div:nth-child(2) > div > div > div > div > div:nth-child(2)";
+  const USERNAME_CSS_SELECTOR =
+    "div:nth-child(2) > div:nth-child(2) div[id] div:nth-child(2) span";
   const DEEP_CLONE = true;
 
   const middleDot = tweet.querySelector(MIDDLE_DOT_CSS_SELECTOR);
+  const usernameNode = tweet.querySelector(USERNAME_CSS_SELECTOR);
 
-  const ageNode = middleDot.cloneNode(DEEP_CLONE);
-  ageNode.firstChild.textContent = `${MIDDLE_DOT} ${age}`;
+  if (middleDot !== null) {
+    // Tweets that show the username on the same line as the display name
 
-  const infoBar = middleDot.parentElement;
+    const ageNode = middleDot.cloneNode(DEEP_CLONE);
+    ageNode.firstChild.textContent = `${MIDDLE_DOT} ${age}`;
 
-  infoBar.appendChild(ageNode);
+    const infoBar = middleDot.parentElement;
+
+    infoBar.appendChild(ageNode);
+  } else if (usernameNode !== null) {
+    // Tweets that show the username below the display name
+
+    const ageNode = usernameNode.cloneNode();
+    ageNode.textContent = ` ${MIDDLE_DOT} ${age}`;
+
+    const usernameBar = usernameNode.parentElement;
+
+    usernameBar.appendChild(ageNode);
+  } else {
+    console.error(
+      `Could not determine how to modify tweet: ${tweet.textContent}`
+    );
+  }
 }
