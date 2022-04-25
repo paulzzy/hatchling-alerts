@@ -3,7 +3,7 @@
   "name": "Hatchling Alerts",
   "version": "0.1.0",
 
-  "description": "Shows the age of a Twitter account above a tweet",
+  "description": "Labels new Twitter accounts",
 
   "icons": {
     "16": "icons/icon16.png",
