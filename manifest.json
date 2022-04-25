@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Hatchling Alerts",
-  "version": "0.1.0",
+  "version": "0.2.0",
 
   "description": "Labels new Twitter accounts",
 
@@ -24,7 +24,7 @@
     }
   ],
 
-  "permissions": ["https://*.twitter.com/*", "cookies", "notifications"],
+  "permissions": ["https://*.twitter.com/*", "cookies"],
 
   "browser_specific_settings": {
     "gecko": {
