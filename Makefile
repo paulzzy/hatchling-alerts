@@ -1,4 +1,6 @@
-.PHONY: firefox, chromium, clean
+.PHONY: all firefox chromium clean
+
+all: firefox chromium
 
 firefox:
 	tools/build-firefox.sh
