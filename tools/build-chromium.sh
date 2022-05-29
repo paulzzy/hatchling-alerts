@@ -22,7 +22,6 @@ cp src/*.js           $BUILD_DES/
 
 echo "Copying Chromium-specific files"
 
-cp src/chromium/*.html $BUILD_DES/
 cp src/chromium/*.js   $BUILD_DES/
 cp src/chromium/*.json $BUILD_DES/
 
