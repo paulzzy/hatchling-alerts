@@ -1,9 +1,9 @@
 // Despite appearing to be unused, these are actually necessary for the extension
 // `dayjs` uses `globalThis`, so it's called with `globalThis.dayjs`
 // See https://stackoverflow.com/questions/71743478/importing-day-js-doesnt-work-in-my-extension-despite-being-usable-in-the-cons
-import * as dayjs from "../../dayjs@1.11.0/dayjs.min.js";
-import * as relativeTime from "../../dayjs@1.11.0/relativeTime.js";
-import * as updateLocale from "../../dayjs@1.11.0/updateLocale.js";
+import * as dayjs from "./dayjs@1.11.0/dayjs.min.js";
+import * as relativeTime from "./dayjs@1.11.0/relativeTime.js";
+import * as updateLocale from "./dayjs@1.11.0/updateLocale.js";
 
 /**
  * Takes a Twitter username and makes a Twitter API request for the UTC datetime
