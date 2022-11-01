@@ -1,0 +1,22 @@
+{
+  "name": "hatchling-alerts",
+  "version": "0.3.0",
+  "description": "Label new Twitter accounts",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paulzzy/hatchling-alerts.git"
+  },
+  "author": "Paul Zhang",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/paulzzy/hatchling-alerts/issues"
+  },
+  "homepage": "https://github.com/paulzzy/hatchling-alerts#readme"
+}
