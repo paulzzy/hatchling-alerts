@@ -1,3 +1,5 @@
+import browser from "webextension-polyfill";
+
 /**
  * Observes the Tweet timeline and finds new Tweets
  * @param {MutationRecord[]} mutations

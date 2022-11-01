@@ -18,5 +18,11 @@
   "bugs": {
     "url": "https://github.com/paulzzy/hatchling-alerts/issues"
   },
-  "homepage": "https://github.com/paulzzy/hatchling-alerts#readme"
+  "homepage": "https://github.com/paulzzy/hatchling-alerts#readme",
+  "devDependencies": {
+    "@types/webextension-polyfill": "0.9.1",
+    "dayjs": "1.11.6",
+    "typescript": "4.8.4",
+    "webextension-polyfill": "0.10.0"
+  }
 }

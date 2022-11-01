@@ -1,9 +1,7 @@
-// Despite appearing to be unused, these are actually necessary for the extension
-// `dayjs` uses `globalThis`, so it's called with `globalThis.dayjs`
-// See https://stackoverflow.com/questions/71743478/importing-day-js-doesnt-work-in-my-extension-despite-being-usable-in-the-cons
-import * as dayjs from "./dayjs@1.11.0/dayjs.min.js";
-import * as relativeTime from "./dayjs@1.11.0/relativeTime.js";
-import * as updateLocale from "./dayjs@1.11.0/updateLocale.js";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import updateLocale from "dayjs/plugin/updateLocale";
+import browser from "webextension-polyfill";
 
 /**
  * Takes a Twitter username and makes a Twitter API request for the UTC datetime
@@ -51,8 +49,8 @@ async function calculateFormattedAge(username) {
   const twitterApiResponse = await createdAt(username);
   console.log(`${username} was created on ${twitterApiResponse}`);
 
-  globalThis.dayjs.extend(globalThis.dayjs_plugin_relativeTime);
-  globalThis.dayjs.extend(globalThis.dayjs_plugin_updateLocale);
+  dayjs.extend(relativeTime);
+  dayjs.extend(updateLocale);
 
   // See https://day.js.org/docs/en/customization/relative-time for
   // documentation on configuring `relativeTime`
@@ -79,9 +77,9 @@ async function calculateFormattedAge(username) {
       yy: `${OLD_PREFIX} %dy`,
     },
   };
-  globalThis.dayjs.updateLocale("en", localeConfig);
+  dayjs.updateLocale("en", localeConfig);
 
-  const datetimeCreated = globalThis.dayjs(twitterApiResponse);
+  const datetimeCreated = dayjs(twitterApiResponse);
 
   const age = datetimeCreated.fromNow();
   return age;
